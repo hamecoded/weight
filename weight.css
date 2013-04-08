@@ -15,6 +15,10 @@
     float: left;
 }
 
+body div.ui-slider{
+    width:100%;
+    margin: 0 auto;
+}
 
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
