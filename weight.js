@@ -1,15 +1,19 @@
 // Set up a collection to contain player information. On the server,
 // it is backed by a MongoDB collection named "players".
 
-Players = new Meteor.Collection("players");
+Records = new Meteor.Collection("records");
 
 if (Meteor.isClient) {
 
-  Template.leaderboard.players = function () {
-    return Players.find({}, {sort: {score: -1, name: 1}});
+  var myRecords = Records.find({}).fetch();
+  var latestRecord = Records.findOne({}, {sort: {date: 1}});
+
+
+  Template.weight.players = function () {
+    return 
   };
 
-  Template.leaderboard.selected_name = function () {
+  Template.weight.selected_name = function () {
     var player = Players.findOne(Session.get("selected_player"));
     return player && player.name;
   };
@@ -18,9 +22,11 @@ if (Meteor.isClient) {
     return Session.equals("selected_player", this._id) ? "selected" : '';
   };
 
-  Template.leaderboard.events({
-    'click input.inc': function () {
-      Players.update(Session.get("selected_player"), {$inc: {score: 1}});
+  Template.record.events({
+    'click a.weight': function () {
+      //Players.update(Session.get("selected_player"), {$inc: {weight: 1}});
+
+
     }
   });
 
@@ -34,7 +40,7 @@ if (Meteor.isClient) {
 // On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    if (Players.find().count() === 0) {
+    /*if (Players.find().count() === 0) {
       var names = ["Ada Lovelace",
                    "Grace Hopper",
                    "Marie Curie",
@@ -42,7 +48,7 @@ if (Meteor.isServer) {
                    "Nikola Tesla",
                    "Claude Shannon"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
-    }
+        t({name: names[i], weight: Math.floor(Random.fraction()*10)*5});
+    }*/
   });
 }

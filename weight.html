@@ -1,0 +1,75 @@
+   <head>
+       <meta charset="utf-8" />
+       <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+       <meta name="apple-mobile-web-app-capable" content="yes" />
+       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+       <title>Weight Tracker</title>
+       <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+       <link rel="stylesheet" href="my.css" />
+       <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+       </script>
+       <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+       </script>
+       <script src="http://connect.facebook.net/en_US/all.js"></script>
+
+       <script src="weight.js">
+       </script>
+       <!-- User-generated css -->
+       <style>
+       </style>
+       <!-- User-generated js -->
+  <script>
+    FB.init({
+      appId:'551936651494127',
+      cookie:true,
+      status:true,
+      xfbml:true
+    });
+
+    function FacebookInviteFriends()
+    {
+      FB.ui({
+        method: 'apprequests',
+        message: 'Your Message diaolog'
+      });
+    }
+  </script>
+       <script>
+           try {
+  
+   $(function() {
+
+   });
+
+ } catch (error) {
+   console.error("Your javascript has an error: " + error);
+ }
+       </script>
+   </head>
+   <body><div id="fb-root"></div>
+
+       <!-- Home -->
+       <div data-role="page" id="page1">
+           <div data-theme="c" data-role="header">
+               {{loginButtons}}
+               <span class="ui-title">
+               </span>
+               <a data-role="button" href='#' onClick="FacebookInviteFriends();" id="fbInviteBtn" data-icon="plus" data-iconpos="left" class="ui-btn-left">
+                   Invite
+               </a>
+           </div>
+           <div data-role="content">
+               <div data-role="fieldcontain" id="weight">
+                   <fieldset data-role="controlgroup">
+                       <label for="weight">
+                           Weight
+                       </label>
+                       <input type="range" name="slider" value="{{weight}}" min="{{min}}" max="{{max}}" data-highlight="true" />
+                   </fieldset>
+               </div>
+               <a id="weight" data-role="button" data-inline="true" href="#page1" data-icon="check" data-iconpos="left">
+                   Confirm
+               </a>
+           </div>
+       </div>
+   </body>
