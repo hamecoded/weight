@@ -1,18 +1,60 @@
-// Set up a collection to contain player information. On the server,
-// it is backed by a MongoDB collection named "players".
+WeightRecords = new Meteor.Collection("weightRecords");
 
-Records = new Meteor.Collection("records");
+WeightRecords.allow({
+  insert: function (userId, record) {
+    console.log("server log: " + JSON.stringify(record));
+    return record.creator == "oded"; 
+  }
+});
 
 if (Meteor.isClient) {
+  var myRecords, currentWeight;
+  function buildChartData(data){
+    for(var i = 0 ; i < data.length ; i++){
 
-  var myRecords = Records.find({}).fetch();
-  var latestRecord = Records.findOne({}, {sort: {date: 1}});
+    }
+  }
 
-
-  Template.weight.players = function () {
-    return 
+  // Meteor.startup(function() {
+//    myRecords = WeightRecords.find({creator: Meteor.userId()}, {sort: {time: -1}}).fetch();
+  // });
+  userLogin = function() {
+    Accounts._loginButtonsSession.set("inSignupFlow", true);
   };
 
+  Template.main.events({
+      "click input": function (e) {
+          WeightRecords.insert({
+              weight: parseFloat( $("#weightInput").val() ),
+              creator: "oded", //Meteor.userId(),
+              time: new Date
+          })
+      }
+  });
+
+function init(){
+  if(myRecords == undefined){
+    myRecords = WeightRecords.find( {creator: "oded"}, {sort: {time: -1}}).fetch();
+    currentWeight = myRecords && myRecords.length ? myRecords[0].weight : 4;
+  }
+  //$("#page1").trigger("create");
+
+}
+
+  Template.main.min =  function () {
+    init();
+    return currentWeight - 4;
+  };
+  Template.main.max =  function () {
+    init();
+    return currentWeight + 4;
+  };
+  Template.main.weight =  function () {
+    init();
+    return currentWeight;
+  };
+}
+/*
   Template.weight.selected_name = function () {
     var player = Players.findOne(Session.get("selected_player"));
     return player && player.name;
@@ -36,19 +78,14 @@ if (Meteor.isClient) {
     }
   });
 }
+*/
 
-// On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    /*if (Players.find().count() === 0) {
-      var names = ["Ada Lovelace",
-                   "Grace Hopper",
-                   "Marie Curie",
-                   "Carl Friedrich Gauss",
-                   "Nikola Tesla",
-                   "Claude Shannon"];
-      for (var i = 0; i < names.length; i++)
-        t({name: names[i], weight: Math.floor(Random.fraction()*10)*5});
-    }*/
+    WeightRecords.insert({weight: 97.8, creator: "oded" , time : new Date},function(err, id){
+      console.log("precreated a record for oded: " + id);
+    });
   });
 }
+
+

@@ -48,28 +48,57 @@
    </head>
    <body><div id="fb-root"></div>
 
+               <!-- {{loginButtons}} -->
        <!-- Home -->
        <div data-role="page" id="page1">
            <div data-theme="c" data-role="header">
-               {{loginButtons}}
+                <a data-role="button" href='#' onClick="userLogin();" id="fbInviteBtn" data-icon="arrow-r" data-iconpos="right" class="ui-btn-right">
+                   Login
+               </a>
                <span class="ui-title">
                </span>
                <a data-role="button" href='#' onClick="FacebookInviteFriends();" id="fbInviteBtn" data-icon="plus" data-iconpos="left" class="ui-btn-left">
                    Invite
                </a>
            </div>
-           <div data-role="content">
-               <div data-role="fieldcontain" id="weight">
-                   <fieldset data-role="controlgroup">
-                       <label style="display:inline" for="weight">
-                           Weight
-                       </label>
-                       <input type="range" name="slider" value="95" min="90" max="100" step="0.1" data-highlight="true" />
-                   </fieldset>
-               </div>
-               <a id="weight" data-role="button" data-inline="true" href="#page1" data-icon="check" data-iconpos="left">
-                   Confirm
-               </a>
+              {{> main}}
+<!--            <div data-role="content">
            </div>
-       </div>
+ -->       </div>
    </body>
+
+<template name="main">
+  <div data-role="fieldcontain" id="weight">
+  <a id="weight" data-role="button" data-inline="true" href="#" data-icon="check" data-iconpos="left">
+     Confirm
+  </a>
+  <input id="weightInput" type="range" name="slider-fill" id="slider-fill" value="{{weight}}" min="{{min}}" max="{{max}}" step="0.1" data-highlight="true" />
+  </div>
+</template>
+
+<template name="mainx">
+  <div data-role="content" class="ui-content" role="main">
+    <div data-role="fieldcontain" id="weight" class="ui-field-contain ui-body ui-br">
+      <a id="weight" data-role="button" data-inline="true" href="#" data-icon="check" data-iconpos="left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left">
+        <span class="ui-btn-inner ui-btn-corner-all">
+          <span class="ui-btn-text">Confirm</span>
+          <span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span>
+        </span>
+      </a>
+      <input id="weightInput" type="number" data-type="range" name="slider-fill" value="{{weight}}" min="{{min}}" max="{{max}}" step="0.1" data-highlight="true" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input">
+      <div role="application" class="ui-slider  ui-btn-down-c ui-btn-corner-all">
+        <div class="ui-slider-bg ui-btn-active ui-btn-corner-all" style="width: 40%;"></div>
+        <a href="#" class="ui-slider-handle ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" role="slider" aria-valuemin="{{min}}" aria-valuemax="{{max}}" aria-valuenow="{{weight}}" aria-valuetext="{{weight}}" title="{{weight}}" aria-labelledby="weightInput-label" style="left: 40%;">
+          <span class="ui-btn-inner ui-btn-corner-all">
+            <span class="ui-btn-text"></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="chart">
+  <div id="chart">
+  </div>
+</template>

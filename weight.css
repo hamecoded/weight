@@ -20,6 +20,11 @@ body div.ui-slider{
     margin: 0 auto;
 }
 
+xx#weight{
+    position: absolute;
+    top: 45px;
+    right: 6px;
+}
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 200;
